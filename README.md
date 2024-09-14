@@ -3,6 +3,7 @@
 ## Scenario:
 
 Version: 21 
+
 Your goal is to develop an API that exposes a simplified smart charging domain. 
 
 **Domain model:**
@@ -29,3 +30,25 @@ The Charge Station cannot exist in the domain without a Group.
 7. The **Capacity in Amps** of a Group should always be greater than or equal to the sum of the
 **Max current in Amps** of all Connectors indirectly belonging to the Group.
 8. All operations/requests not meeting the above requirement should be rejected.
+
+## Getting Started
+
+This project is built on .NET 8 so please install it first.
+
+```
+https://dotnet.microsoft.com/en-us/download
+```
+
+Then clone the project and browse the `SCA.Presentation` folder in your local machine.
+
+After building and creating the database automatically you should be able to see the Swagger page at an address like below:
+
+```
+http://localhost:5073/swagger/index.html
+```
+
+![image](https://github.com/user-attachments/assets/4147c1a2-d153-406d-935f-f82b1d61f93c)
+
+
+
+
