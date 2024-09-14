@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="HamedStack.CQRS" Version="1.0.1" />
+	  <PackageReference Include="HamedStack.CQRS.FluentValidation" Version="1.0.2" />
+	  <PackageReference Include="HamedStack.CQRS.Behaviors" Version="1.0.0" />
+	  <PackageReference Include="HamedStack.CQRS.Behaviors.Result" Version="1.0.0" />
+	  <PackageReference Include="HamedStack.CQRS.Behaviors.FluentValidation" Version="1.0.0" />
+	  <PackageReference Include="HamedStack.Repository" Version="1.0.1" />
+	  <PackageReference Include="HamedStack.Result.FluentValidation" Version="1.0.1" />
+	  <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+	  <PackageReference Include="FluentValidation" Version="11.9.2" />
+	  <PackageReference Include="HamedStack.Paging" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SCA.Domain\SCA.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ChargeStations\Commands\Delete\" />
+  </ItemGroup>
+
+</Project>
