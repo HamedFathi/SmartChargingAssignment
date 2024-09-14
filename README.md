@@ -39,7 +39,11 @@ This project is built on .NET 8 so please install it first.
 https://dotnet.microsoft.com/en-us/download
 ```
 
-Then clone the project and browse the `SCA.Presentation` folder in your local machine.
+Then clone the project, browse the `SCA.Presentation` folder in your local machine and execute the following command.
+
+```
+dotnet run
+```
 
 After building and creating the database automatically you should be able to see the Swagger page at an address like below:
 
