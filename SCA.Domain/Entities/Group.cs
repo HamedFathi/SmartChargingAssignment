@@ -1,4 +1,5 @@
 ﻿using HamedStack.TheAggregateRoot;
+using SCA.Domain.Exceptions;
 using SCA.Domain.ValueObjects;
 
 namespace SCA.Domain.Entities;
@@ -8,7 +9,7 @@ public class Group : Entity<Guid>
     public Name Name { get; set; }
     public CapacityInAmps CapacityInAmps { get; set; }
 
-    private readonly List<ChargeStation> _chargeStations = new List<ChargeStation>();
+    private readonly List<ChargeStation> _chargeStations = new();
     public IReadOnlyList<ChargeStation> ChargeStations => _chargeStations.AsReadOnly();
 
     private Group()
@@ -62,7 +63,7 @@ public class Group : Entity<Guid>
         var totalConnectorAmps = _chargeStations.Sum(cs => cs.Connectors.Sum(c => c.MaxCurrentInAmps));
         if (CapacityInAmps < totalConnectorAmps)
         {
-            throw new InvalidOperationException("Group capacity cannot be less than the sum of MaxCurrentInAmps of all Connectors in the Group.");
+            throw new GroupCapacityException("Group capacity cannot be less than the sum of MaxCurrentInAmps of all Connectors in the Group.");
         }
     }
 }

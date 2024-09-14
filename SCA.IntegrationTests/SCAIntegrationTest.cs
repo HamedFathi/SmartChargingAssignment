@@ -1,6 +1,8 @@
+using System.Net;
 using FluentAssertions;
 using SCA.Application.ChargeStations.Commands.Create;
 using SCA.Application.Groups.Commands.Create;
+using SCA.Domain.Exceptions;
 
 namespace SCA.IntegrationTests;
 
@@ -34,17 +36,28 @@ public class SCAIntegrationTest : WebIntegrationTestBase
 
         var connectors = new List<AddConnectorDto>()
         {
-            new AddConnectorDto(2),
-            new AddConnectorDto(3),
-            new AddConnectorDto(4),
-            new AddConnectorDto(5),
+            new(2),
+            new(3),
+            new(4),
+            new(5),
         };
 
         var chargeStationCommand =
             new AddChargeStationToGroupCommand(groupResult.Value, "my-chargestation", connectors);
 
         Func<Task> act = async () => await Dispatcher.Send(chargeStationCommand);
-        await act.Should().ThrowAsync<InvalidOperationException>("Group capacity cannot be less than the sum of MaxCurrentInAmps of all Connectors in the Group.");
+        await act.Should().ThrowAsync<GroupCapacityException>("Group capacity cannot be less than the sum of MaxCurrentInAmps of all Connectors in the Group.");
 
+    }
+
+    [Fact]
+    public async Task Should_Delete_Group_Successfully()
+    {
+        var groupCommand = new CreateGroupCommand("my-group", 10);
+        var groupResult = await Dispatcher.Send(groupCommand);
+
+        var response = await HttpClient.DeleteAsync($"/group/{groupResult.Value}");
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
