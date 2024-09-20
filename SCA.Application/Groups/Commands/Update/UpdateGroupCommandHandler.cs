@@ -14,7 +14,9 @@ internal class UpdateGroupCommandHandler : ICommandHandler<UpdateGroupCommand, b
     private readonly IUnitOfWork _unitOfWork;
     private readonly IValidator<UpdateGroupCommand> _validator;
 
-    public UpdateGroupCommandHandler(IRepository<Group> repository, IUnitOfWork unitOfWork,
+    public UpdateGroupCommandHandler(
+        IRepository<Group> repository, 
+        IUnitOfWork unitOfWork,
         IValidator<UpdateGroupCommand> validator)
     {
         _repository = repository;
@@ -36,6 +38,10 @@ internal class UpdateGroupCommandHandler : ICommandHandler<UpdateGroupCommand, b
         {
             return Result<bool>.NotFound(false, "Group is not found.");
         }
+        if (group.Version != request.Version)
+        {
+            return Result<bool>.Conflict(false, "Group was already updated. Please fetch the group again and repeat.");
+        }
 
         if (request.Capacity is { } newCapacity)
         {
@@ -47,6 +53,7 @@ internal class UpdateGroupCommandHandler : ICommandHandler<UpdateGroupCommand, b
             group.Name = new Name(newName);
         }
 
+        group.Version = Guid.NewGuid(); // NOTE: better do that in EF interceptor
         await _repository.UpdateAsync(group, cancellationToken);
 
         var result = await _unitOfWork.SaveChangesAsync(cancellationToken);

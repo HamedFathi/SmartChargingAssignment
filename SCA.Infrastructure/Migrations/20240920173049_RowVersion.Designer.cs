@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCA.Infrastructure;
 
@@ -10,9 +11,11 @@ using SCA.Infrastructure;
 namespace SCA.Infrastructure.Migrations
 {
     [DbContext(typeof(SmartChargingAssignmentContext))]
-    partial class SmartChargingAssignmentContextModelSnapshot : ModelSnapshot
+    [Migration("20240920173049_RowVersion")]
+    partial class RowVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");

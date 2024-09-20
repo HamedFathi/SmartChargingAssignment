@@ -10,6 +10,9 @@ public class UpdateGroupCommandValidator : CommandValidator<UpdateGroupCommand, 
         RuleFor(e => e.Id)
             .NotEmpty();
 
+        RuleFor(e => e.Version)
+            .NotEmpty();
+
         RuleFor(e => e.Name)
             .NotEmpty()
             .Length(1, 100)

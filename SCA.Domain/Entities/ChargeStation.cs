@@ -1,5 +1,6 @@
 ﻿using HamedStack.TheAggregateRoot;
 using SCA.Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace SCA.Domain.Entities;
 
@@ -12,6 +13,9 @@ public class ChargeStation : Entity<Guid>
 
     private readonly List<Connector> _connectors = new();
     public IReadOnlyList<Connector> Connectors => _connectors.AsReadOnly();
+
+    [ConcurrencyCheck]
+    public Guid? Version { get; set; }
 
     private ChargeStation()
     {

@@ -2,9 +2,10 @@
 
 namespace SCA.Application.Groups.Commands.Update;
 
-public class UpdateGroupCommand(Guid id, string? name, int? capacity) : ICommand<bool>
+public class UpdateGroupCommand : ICommand<bool>
 {
-    public Guid Id { get; } = id;
-    public string? Name { get; } = name;
-    public int? Capacity { get; } = capacity;
+    public required Guid Id { get; init; }
+    public required string? Name { get; init; }
+    public required int? Capacity { get; init; }
+    public required Guid Version { get; init; }
 }

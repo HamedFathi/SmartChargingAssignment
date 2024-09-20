@@ -1,5 +1,6 @@
 ﻿using HamedStack.TheAggregateRoot;
 using SCA.Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace SCA.Domain.Entities;
 
@@ -9,6 +10,9 @@ public class Connector : Entity<int>
 
     public Guid ChargeStationId { get; set; }
     public ChargeStation? ChargeStation { get; set; }
+
+    [ConcurrencyCheck]
+    public Guid? Version { get; set; }
 
     private Connector()
     {

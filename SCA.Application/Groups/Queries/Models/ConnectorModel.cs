@@ -1,7 +1,9 @@
-﻿namespace SCA.Application.Groups.Queries.Models;
+﻿
+namespace SCA.Application.Groups.Queries.Models;
 
 public class ConnectorModel
 {
     public int MaxCurrent { get; set; }
     public required int Id { get; set; }
+    public required Guid? Version { get; set; }
 }

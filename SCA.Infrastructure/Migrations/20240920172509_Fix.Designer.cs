@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SCA.Infrastructure;
 
@@ -10,9 +11,11 @@ using SCA.Infrastructure;
 namespace SCA.Infrastructure.Migrations
 {
     [DbContext(typeof(SmartChargingAssignmentContext))]
-    partial class SmartChargingAssignmentContextModelSnapshot : ModelSnapshot
+    [Migration("20240920172509_Fix")]
+    partial class Fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -56,10 +59,6 @@ namespace SCA.Infrastructure.Migrations
                     b.Property<Guid>("GroupId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("Version")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
@@ -75,10 +74,6 @@ namespace SCA.Infrastructure.Migrations
                     b.Property<Guid>("ChargeStationId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("Version")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChargeStationId");
@@ -92,10 +87,6 @@ namespace SCA.Infrastructure.Migrations
             modelBuilder.Entity("SCA.Domain.Entities.Group", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("Version")
-                        .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
