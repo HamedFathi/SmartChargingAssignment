@@ -31,7 +31,22 @@ internal class UpdateGroupCommandHandler : ICommandHandler<UpdateGroupCommand, b
             return validationResult.ToResult<bool>();
         }
 
-        var group = new Group(request.Id, new Name(request.Name), new CapacityInAmps(request.Capacity));
+        var group = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        if (group is null)
+        {
+            return Result<bool>.NotFound(false, "Group is not found.");
+        }
+
+        if (request.Capacity is { } newCapacity)
+        {
+            group.UpdateCapacityInAmps(newCapacity);
+        }
+
+        if (request.Name is { } newName)
+        {
+            group.Name = new Name(newName);
+        }
+
         await _repository.UpdateAsync(group, cancellationToken);
 
         var result = await _unitOfWork.SaveChangesAsync(cancellationToken);

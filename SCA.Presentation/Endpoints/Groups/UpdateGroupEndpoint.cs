@@ -9,8 +9,7 @@ public class UpdateGroupEndpoint : IMinimalApiEndpoint
 {
     public void HandleEndpoint(IEndpointRouteBuilder endpoint)
     {
-        endpoint.MapPut("/group", UpdateGroupEndpointHandler);
-
+        endpoint.MapPatch("/group", UpdateGroupEndpointHandler);
     }
 
     private async Task<Result<bool>> UpdateGroupEndpointHandler(UpdateGroupCommand updateGroupCommand, ICommandQueryDispatcher dispatcher)

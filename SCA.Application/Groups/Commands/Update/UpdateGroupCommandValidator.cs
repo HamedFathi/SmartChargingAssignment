@@ -7,8 +7,20 @@ public class UpdateGroupCommandValidator : CommandValidator<UpdateGroupCommand, 
 {
     public UpdateGroupCommandValidator()
     {
-        RuleFor(e => e.Name).NotNull().NotEmpty().Length(1, 100);
-        RuleFor(e => e.Capacity).GreaterThan(0);
-        RuleFor(e => e.Id.ToString()).NotEmpty().Must(guid => Guid.TryParse(guid, out _));
+        RuleFor(e => e.Id)
+            .NotEmpty();
+
+        RuleFor(e => e.Name)
+            .NotEmpty()
+            .Length(1, 100)
+            .When(e => e.Name is not null);
+
+        RuleFor(e => e.Capacity)
+            .GreaterThan(0)
+            .When(e => e.Capacity is not null);
+
+        RuleFor(e => e)
+            .Must(e => e.Capacity is not null || e.Name is not null)
+            .WithMessage(e => $"'{nameof(e.Capacity)}' or '{nameof(e.Name)}' must be provided");
     }
 }
