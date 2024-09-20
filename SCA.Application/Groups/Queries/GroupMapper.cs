@@ -18,6 +18,7 @@ public static class GroupMapper
 
         return new GroupModel
         {
+            Id = group.Id,
             Name = group.Name.Value,
             Capacity = group.CapacityInAmps.Value,
             ChargeStations = group.ChargeStations.Select(MapToChargeStationModel).ToList()
@@ -30,6 +31,7 @@ public static class GroupMapper
 
         return new ChargeStationModel
         {
+            Id = chargeStation.Id,
             Name = chargeStation.Name.Value,
             Connectors = chargeStation.Connectors.Select(MapToConnectorModel).ToList()
         };
@@ -41,6 +43,7 @@ public static class GroupMapper
 
         return new ConnectorModel
         {
+            Id = connector.Id,
             MaxCurrent = connector.MaxCurrentInAmps.Value
         };
     }
