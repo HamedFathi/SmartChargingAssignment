@@ -1,6 +1,7 @@
 ﻿using HamedStack.TheAggregateRoot;
 using SCA.Domain.Exceptions;
 using SCA.Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace SCA.Domain.Entities;
 
@@ -11,6 +12,9 @@ public class Group : Entity<Guid>
 
     private readonly List<ChargeStation> _chargeStations = new();
     public IReadOnlyList<ChargeStation> ChargeStations => _chargeStations.AsReadOnly();
+
+    [ConcurrencyCheck]
+    public Guid? Version { get; set; }
 
     private Group()
     {

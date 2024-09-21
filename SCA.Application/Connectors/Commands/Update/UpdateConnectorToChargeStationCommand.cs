@@ -4,16 +4,14 @@ namespace SCA.Application.Connectors.Commands.Update;
 
 public class UpdateConnectorToChargeStationCommand : ICommand<bool>
 {
-    public Guid GroupId { get; }
-    public Guid ChargeStationId { get; }
-    public int ConnectorId { get; }
+    public required Guid GroupId { get; init; }
+    public required Guid GroupVersion { get; init; }
 
-    public int MaxCurrentAmps { get; }
-    public UpdateConnectorToChargeStationCommand(Guid groupId, Guid chargeStationId, int connectorId, int maxCurrentAmps)
-    {
-        GroupId = groupId;
-        ChargeStationId = chargeStationId;
-        MaxCurrentAmps = maxCurrentAmps;
-        ConnectorId = connectorId;
-    }
+    public required Guid ChargeStationId { get; init; }
+    public required Guid ChargeStationVersion { get; init; }
+
+    public required int ConnectorId { get; init; }
+    public required Guid ConnectorVersion { get; init; }
+
+    public required int MaxCurrentAmps { get; init; }
 }

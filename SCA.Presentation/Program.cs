@@ -4,6 +4,7 @@ using HamedStack.TheResult.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using SCA.Application;
 using SCA.Infrastructure;
+using System.Text.Json.Serialization;
 
 namespace SCA.Presentation;
 
@@ -17,6 +18,16 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddMinimalApiEndpoints();
+
+        var enumToStringConverter = new JsonStringEnumConverter();
+        builder.Services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.Converters.Add(enumToStringConverter);
+        });
+        builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(enumToStringConverter);
+        });
 
         builder.Services.AddProblemDetails();
 
